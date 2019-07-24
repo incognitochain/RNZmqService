@@ -22,7 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		B3E7B58A1CC2AC0600A0062D /* RNZmqService.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNZmqService.m */; };
-		FEAD632A22C47D53004E59FD /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAD632922C47D53004E59FD /* libReact.a */; };
 		FEB68D2822D6DD9800562A26 /* AutonomousZMQ.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FECCEDF722C379D900129059 /* AutonomousZMQ.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FECCED6A22C365F600129059 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FECCED6922C365F600129059 /* Foundation.framework */; };
 		FECCEDF822C379D900129059 /* AutonomousZMQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FECCEDF722C379D900129059 /* AutonomousZMQ.framework */; };
@@ -181,7 +180,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEAD632A22C47D53004E59FD /* libReact.a in Frameworks */,
 				FECCEDF822C379D900129059 /* AutonomousZMQ.framework in Frameworks */,
 				FECCED6A22C365F600129059 /* Foundation.framework in Frameworks */,
 			);
