@@ -32,5 +32,6 @@ repositories {
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
+    compile group: 'org.zeromq', name: 'jeromq', version: '0.5.1'
 }
   
