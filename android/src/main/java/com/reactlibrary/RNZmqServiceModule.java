@@ -3,6 +3,9 @@ package com.reactlibrary;
 
 import android.content.Context;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
@@ -64,10 +67,13 @@ public class RNZmqServiceModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void sendData(String data, final Promise promise) {
         //Toast.makeText(getReactApplicationContext(), message, duration).show();
+        WifiManager wifiManager = (WifiManager) reactContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
+        this.address = intToInetAddress(wifiManager.getDhcpInfo().serverAddress).getHostAddress();
         String address = String.format("tcp://%s:5004", this.address);
+//        String address = "tcp://*:5004";
         Log.d(TAG, "sendData: " + data + ", address = " + address);
-        ZeroMQMessageTask zeroMQMessageTask = new ZeroMQMessageTask(new MessageListenerHandler(
+        final ZeroMQMessageTask zeroMQMessageTask = new ZeroMQMessageTask(new MessageListenerHandler(
                 new IMessageListener() {
                     @Override
                     public void messageReceived(String messageBody) {
@@ -81,14 +87,30 @@ public class RNZmqServiceModule extends ReactContextBaseJavaModule {
                 Util.MESSAGE_PAYLOAD_KEY), address);
         zeroMQMessageTask.execute(data);
 
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(zeroMQMessageTask.getStatus() == AsyncTask.Status.RUNNING){
+                    zeroMQMessageTask.cancel(true);
+
+                    if (promise != null) {
+                        promise.reject("4","timeout");
+                    }
+                }
+            }
+        },3000);
+
+
     }
 
 
     private final ReactApplicationContext reactContext;
+    private final Handler handler ;
 
     public RNZmqServiceModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
+        handler = new Handler(Looper.getMainLooper());
         WifiManager wifiManager = (WifiManager) reactContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
 //        final String address = Formatter.formatIpAddress(wifiManager.getDhcpInfo().gateway);// gateway -
