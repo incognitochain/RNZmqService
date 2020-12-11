@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package com.incognito.zmq;
 
 import android.os.AsyncTask;
 import android.os.Handler;

@@ -1,5 +1,5 @@
 
-package com.reactlibrary;
+package com.incognito.zmq;
 
 import android.content.Context;
 import android.net.wifi.WifiManager;
